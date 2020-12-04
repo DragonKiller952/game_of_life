@@ -43,6 +43,8 @@ class Simulator:
                     if neighbors.count(1) in birth:
                         new.set(j, i)
 
+        self.set_world(new)
+
         return new
 
     def get_generation(self):

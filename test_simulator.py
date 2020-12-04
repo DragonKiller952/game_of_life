@@ -25,6 +25,11 @@ class TestSimulator(TestCase):
                 plain.set(i[0], i[1])
             return plain
 
+        def tester(rules, rulestest):
+            self.sim.set_world(rules)
+            compareArray = self.sim.update().world == rulestest.world
+            self.assertTrue(compareArray.all())
+
         rules1 = setting(sampleworld, [(5, 1), (11, 1), (5, 2), (11, 2), (5, 3), (6, 3), (10, 3), (11, 3), (1, 5),
                                        (2, 5), (3, 5), (6, 5), (7, 5), (9, 5), (10, 5), (13, 5), (14, 5), (15, 5),
                                        (3, 6), (5, 6), (7, 6), (9, 6), (11, 6), (13, 6), (5, 7), (6, 7), (10, 7),
@@ -43,11 +48,8 @@ class TestSimulator(TestCase):
                                            (10, 11), (12, 11), (13, 11), (14, 11), (2, 12), (5, 12), (7, 12), (9, 12),
                                            (11, 12), (14, 12), (5, 13), (6, 13), (10, 13), (11, 13), (4, 14), (5, 14),
                                            (11, 14), (12, 14)])
-        self.sim.set_world(rules1)
-        compareArray = self.sim.update().world == rulestest1.world
-        self.assertTrue(compareArray.all())
-        print(self.sim.get_world().world.all())
-        print(str(rulestest1.world))
+
+        tester(rules1, rulestest1)
 
         rules2 = setting(sampleworld, [(4, 2), (5, 2), (11, 2), (12, 2), (5, 3), (6, 3), (10, 3), (11, 3), (2, 4),
                                        (5, 4), (7, 4), (9, 4), (11, 4), (14, 4), (2, 5), (3, 5), (4, 5), (6, 5), (7, 5),
@@ -64,9 +66,7 @@ class TestSimulator(TestCase):
                                            (10, 9), (11, 9), (12, 9), (2, 10), (7, 10), (9, 10), (14, 10), (2, 11),
                                            (7, 11), (9, 11), (14, 11), (2, 12), (7, 12), (9, 12), (14, 12), (4, 14),
                                            (5, 14), (6, 14), (10, 14), (11, 14), (12, 14)])
-        self.sim.set_world(rules2)
-        compareArray = self.sim.update().world == rulestest2.world
-        self.assertTrue(compareArray.all())
+        tester(rules2, rulestest2)
 
     def test_get_generation(self):
         """
