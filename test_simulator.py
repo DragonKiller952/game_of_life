@@ -70,6 +70,7 @@ class TestSimulator(TestCase):
 
         ages = setting(sampleworld, [(9, 9), (10, 9), (9, 10), (10, 10)])
         agestest = deepcopy(sampleworld)
+        self.sim.gen_world = deepcopy(sampleworld)
 
         self.sim.set_world(ages)
         self.sim.update()

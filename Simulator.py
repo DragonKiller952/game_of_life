@@ -15,8 +15,10 @@ class Simulator:
         self.generation = 0
         if world == None:
             self.world = World(20)
+            self.gen_world = World(20)
         else:
             self.world = world
+            self.gen_world = world
 
     def update(self) -> World:
         """
@@ -26,6 +28,7 @@ class Simulator:
         """
         self.generation += 1
 
+        agelimit = 5
         birth = [3]
         survive = [2, 3]
 
@@ -35,13 +38,24 @@ class Simulator:
         for i in range(current.height):
             for j in range(current.width):
                 cell = current.get(j, i)
+                agecell = self.gen_world.get(j, i)
                 neighbors = current.get_neighbours(j, i)
-                if cell == 1:
+                if agecell > agelimit-1:
+                    self.gen_world.set(j, i, 0)
+                elif cell == 1:
                     if neighbors.count(1) in survive:
+                        if agecell == 0:
+                            self.gen_world.set(j, i, agecell + 2)
+                        else:
+                            self.gen_world.set(j, i, agecell + 1)
                         new.set(j, i)
+                    else:
+                        self.gen_world.set(j, i, 0)
                 elif cell == 0:
                     if neighbors.count(1) in birth:
                         new.set(j, i)
+                        self.gen_world.set(j, i, agecell+1)
+
 
         self.set_world(new)
 
