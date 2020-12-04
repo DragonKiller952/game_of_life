@@ -16,7 +16,7 @@ class TestSimulator(TestCase):
         """
         self.assertIsInstance(self.sim.update(), World)
 
-        sampleworld = self.sim.get_world()
+        sampleworld = World(self.sim.world.width, self.sim.world.height)
 
         def setting(rawplain, set):
             plain = deepcopy(rawplain)
@@ -67,6 +67,20 @@ class TestSimulator(TestCase):
                                            (7, 11), (9, 11), (14, 11), (2, 12), (7, 12), (9, 12), (14, 12), (4, 14),
                                            (5, 14), (6, 14), (10, 14), (11, 14), (12, 14)])
         tester(rules2, rulestest2)
+
+        ages = setting(sampleworld, [(9, 9), (10, 9), (9, 10), (10, 10)])
+        agestest = deepcopy(sampleworld)
+
+        self.sim.set_world(ages)
+        self.sim.update()
+        self.sim.update()
+        self.sim.update()
+        self.sim.update()
+        self.sim.update()
+        compareArray = self.sim.get_world().world == agestest.world
+        self.assertTrue(compareArray.all())
+
+
 
     def test_get_generation(self):
         """
