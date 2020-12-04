@@ -26,9 +26,24 @@ class Simulator:
         """
         self.generation += 1
 
-        #TODO: Do something to evolve the generation
+        birth = [3]
+        survive = [2, 3]
 
-        return self.world
+        new = World(self.world.width, self.world.height)
+        current = self.world
+
+        for i in range(current.height):
+            for j in range(current.width):
+                cell = current.get(j, i)
+                neighbors = current.get_neighbours(j, i)
+                if cell == 1:
+                    if neighbors.count(1) in survive:
+                        new.set(j, i)
+                elif cell == 0:
+                    if neighbors.count(1) in birth:
+                        new.set(j, i)
+
+        return new
 
     def get_generation(self):
         """
