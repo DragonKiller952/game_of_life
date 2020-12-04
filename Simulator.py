@@ -22,7 +22,8 @@ class Simulator:
 
     def update(self) -> World:
         """
-        Updates the state of the world to the next generation. Uses rules for evolution.
+        Updates the state of the world to the next generation. Uses rules for evolution. Also sets world
+        Implements age limit for cells.
 
         :return: New state of the world.
         """

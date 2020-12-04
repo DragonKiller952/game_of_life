@@ -13,6 +13,7 @@ class TestSimulator(TestCase):
     def test_update(self):
         """
         Tests that the update functions returns an object of World type.
+        Tests that the rules and agelimit are correctly implemented
         """
         self.assertIsInstance(self.sim.update(), World)
 
